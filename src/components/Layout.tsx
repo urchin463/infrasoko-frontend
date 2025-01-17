@@ -22,9 +22,9 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <div className="flex-1 flex">
+      <div className="flex-1 flex overflow-hidden">
         <Sidebar />
-        <main className="flex-1 p-8 overflow-auto">
+        <main className="flex-1 overflow-y-auto p-8">
           <div className="container mx-auto">
             <Outlet />
           </div>

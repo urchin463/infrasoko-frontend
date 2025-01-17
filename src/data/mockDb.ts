@@ -6,24 +6,38 @@ const users: User[] = [
     id: '1',
     full_name: 'Admin User',
     role: 'admin',
-    department: 'Management',
+    email: 'admin@infrasoko.com',
     created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
   },
   {
     id: '2',
-    full_name: 'Project Manager',
-    role: 'manager',
-    department: 'Engineering',
+    full_name: 'John Client',
+    role: 'client',
+    email: 'client@example.com',
     created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
+  },
+  {
+    id: '3',
+    full_name: 'Sarah Contractor',
+    role: 'contractor',
+    email: 'contractor@example.com',
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: '4',
+    full_name: 'Mike Consultant',
+    role: 'consultant',
+    email: 'consultant@example.com',
+    created_at: new Date().toISOString(),
   },
 ];
 
 // Mock credentials
 const credentials = [
-  { email: 'admin@example.com', password: 'admin123', userId: '1' },
-  { email: 'manager@example.com', password: 'manager123', userId: '2' },
+  { email: 'admin@infrasoko.com', password: 'admin123', userId: '1' },
+  { email: 'client@example.com', password: 'client123', userId: '2' },
+  { email: 'contractor@example.com', password: 'contractor123', userId: '3' },
+  { email: 'consultant@example.com', password: 'consultant123', userId: '4' },
 ];
 
 export const mockDb = {

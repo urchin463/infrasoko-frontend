@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { RoleGuard } from './components/RoleGuard';
 import { Dashboard } from './pages/Dashboard';
 import { Projects } from './pages/Projects';
 import { Tasks } from './pages/Tasks';
@@ -25,12 +26,54 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="projects" element={<Projects />} />
-              <Route path="tasks" element={<Tasks />} />
-              <Route path="procurement" element={<Procurement />} />
-              <Route path="maintenance" element={<Maintenance />} />
-              <Route path="finance" element={<Finance />} />
-              <Route path="contracts" element={<Contracts />} />
-              <Route path="reports" element={<Reports />} />
+              <Route
+                path="tasks"
+                element={
+                  <RoleGuard allowedRoles={['admin', 'contractor', 'consultant']}>
+                    <Tasks />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="procurement"
+                element={
+                  <RoleGuard allowedRoles={['admin', 'contractor']}>
+                    <Procurement />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="maintenance"
+                element={
+                  <RoleGuard allowedRoles={['admin', 'contractor']}>
+                    <Maintenance />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="finance"
+                element={
+                  <RoleGuard allowedRoles={['admin']}>
+                    <Finance />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="contracts"
+                element={
+                  <RoleGuard allowedRoles={['admin', 'client', 'contractor']}>
+                    <Contracts />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="reports"
+                element={
+                  <RoleGuard allowedRoles={['admin', 'client', 'consultant']}>
+                    <Reports />
+                  </RoleGuard>
+                }
+              />
             </Route>
           </Routes>
         </AuthProvider>

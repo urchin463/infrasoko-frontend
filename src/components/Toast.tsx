@@ -26,7 +26,7 @@ export function Toast({ message, type, onClose }: ToastProps) {
   }, [onClose]);
 
   return (
-    <div className={`fixed top-4 right-4 p-4 rounded-lg border-l-4 shadow-md ${toastStyles[type]}`}>
+    <div className={`fixed top-4 right-4 p-4 rounded-lg border-l-4 shadow-md z-50 ${toastStyles[type]}`}>
       <div className="flex items-center justify-between">
         <p className="mr-8">{message}</p>
         <button

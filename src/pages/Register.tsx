@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { supabase } from '@/lib/supabase';
 import { useToast } from '@/contexts/ToastContext';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { db } from '@/lib/db';
 import type { RegisterFormData } from '@/types';
 
 const formSchema = z.object({
@@ -57,29 +57,15 @@ export function Register() {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      const { error: signUpError, data: authData } = await supabase.auth.signUp({
+      const newUser = {
+        id: crypto.randomUUID(),
         email: data.email,
-        password: data.password,
-        options: {
-          data: {
-            full_name: data.full_name,
-          },
-        },
-      });
+        full_name: data.full_name,
+        role: data.user_role,
+        created_at: new Date().toISOString(),
+      };
 
-      if (signUpError) throw signUpError;
-
-      const { error: profileError } = await supabase
-        .from('user_profiles')
-        .update({
-          company_name: data.company_name,
-          contact_number: data.contact_number,
-          user_role: data.user_role,
-          profile_picture_url: data.profile_picture_url,
-        })
-        .eq('user_id', authData.user!.id);
-
-      if (profileError) throw profileError;
+      await db.put('users', newUser);
 
       showToast('Registration successful! Please log in.', 'success');
       navigate('/login');
